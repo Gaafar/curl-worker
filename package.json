@@ -1,0 +1,26 @@
+{
+  "name": "curl-worker",
+  "version": "1.0.0",
+  "description": "A template for kick starting a Cloudflare Workers project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write '**/*.{js,css,json,md}'"
+  },
+  "author": "Mostafa Gaafar <mgaafar@live.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^2.1.0",
+    "prettier": "^1.17.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format",
+      "pre-push": "npm run format"
+    }
+  },
+  "dependencies": {
+    "boxen": "git+https://git@github.com/Gaafar/boxen.git",
+    "chalk": "^2.4.2"
+  }
+}
