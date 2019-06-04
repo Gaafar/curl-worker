@@ -34,7 +34,7 @@ const getCard = () => {
             ${pale("https://")}${highlight("gafi.dev")}
   `;
 
-  return chk.bgBlack.green(
+  return chk.green(
     boxen(chk.white(output), {
       padding: 1,
       margin: 1,
@@ -49,15 +49,19 @@ const getCard = () => {
  * @param {Request} request
  */
 async function handleRequest(request) {
-  const url = new URL(request.url);
-  const userAgent = request.headers.get("user-agent");
-  if (
-    url.pathname === "/" && // only root path
-    request.method.toLowerCase() === "get" && // only get requests
-    userAgent.match(/(curl\/|libcurl\/|HTTPie\/)/i) // only curl or similar
-  ) {
-    return new Response(getCard(), { status: 200 });
-  } else {
+  try {
+    const url = new URL(request.url);
+    const userAgent = request.headers.get("user-agent") || "";
+    if (
+      url.pathname === "/" && // only root path
+      request.method.toLowerCase() === "get" && // only get requests
+      userAgent.match(/(curl|libcurl|HTTPie)\//i) // only curl or similar
+    ) {
+      return new Response(getCard(), { status: 200 });
+    } else {
+      return fetch(request);
+    }
+  } catch (err) {
     return fetch(request);
   }
 }
